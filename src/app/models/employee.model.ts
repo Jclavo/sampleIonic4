@@ -1,8 +1,8 @@
 export class EmployeeModel {
 
-    public employee_id: number;
+    public employee_id: string;
     public name: string;
     public birthdate: Date;
-    public genre: number;
+    public genre: string;
     public country_id: number;
 }

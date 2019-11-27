@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Employee</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form #form="ngForm" (ngSubmit)="save(form)" method="post">
+
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Name:</ion-label>
+          <ion-input [(ngModel)]="employee.name" type="text" name="name" maxlength="45" required>
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Birthdate:</ion-label>
+          <ion-datetime [(ngModel)]="employee.birthdate" name="birthdate" displayFormat="MM/DD/YYYY"></ion-datetime>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-radio-group [(ngModel)]="employee.genre" name="genre">
+          <ion-list-header>
+            <ion-label>Genre</ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>Man</ion-label>
+            <ion-radio slot="start" value="1" checked></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Woman</ion-label>
+            <ion-radio slot="start" value="2"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>Country</ion-label>
+            <ion-select [(ngModel)]="employee.country" name="country" placeholder="Selecione...">
+              <ion-select-option *ngFor="let country of countries" value="{{country.country_id}}">
+                {{country.name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-row class="ion-text-center">
+      <ion-col col-6>
+        <ion-button expand="full" [disabled]="!form.valid" type="submit" color="success">Save</ion-button>
+      </ion-col>
+
+      <ion-col col-6>
+        <ion-button expand="full" color="danger">Cancel</ion-button>
+      </ion-col>
+
+    </ion-row>
+
+  </form>
+
+</ion-content>
