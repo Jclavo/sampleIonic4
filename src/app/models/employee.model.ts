@@ -1,4 +1,8 @@
 export class EmployeeModel {
-    
-    public CodigoBoletim: string;    
+
+    public employee_id: number;
+    public name: string;
+    public birthdate: Date;
+    public genre: number;
+    public country_id: number;
 }
