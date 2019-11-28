@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'; 
+import { Router, ActivatedRoute } from '@angular/router';
 
 //MODELS
 import { EmployeeModel } from '../../models/employee.model';
@@ -22,10 +23,36 @@ export class EmployeePage implements OnInit {
   private countries: Array<CountryModel> = [];
 
   constructor(private alertService: AlertService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.mockCountries();
+
+    // Getting data from another page
+    this.activatedRoute.params.subscribe(
+      data => {
+
+        //"data" carries all the parameters
+        this.employee.employee_id = data.employe_id;
+
+        //Your logic
+
+        if(this.employee.employee_id)
+        {
+          //Create a form
+          
+          //this.CRUDEmployee('',formEmployee);
+        }
+
+
+
+      }
+    )
+
+
+
   }
 
   mockCountries()
@@ -79,7 +106,7 @@ export class EmployeePage implements OnInit {
             this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
             
           } 
-
+          this.router.navigate(['/home']);
         }
         else {
           this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
@@ -90,6 +117,11 @@ export class EmployeePage implements OnInit {
         //this.router.navigate(['/home']);
       }
     });
+  }
+
+  cancel()
+  {
+    this.router.navigate(['home']);
   }
 
 }

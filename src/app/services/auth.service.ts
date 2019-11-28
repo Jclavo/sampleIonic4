@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment.prod';
 //import { Base64 } from '@ionic-native/base64/ngx';
 //import { Observable, throwError } from 'rxjs';
-// import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 
 
@@ -34,7 +34,7 @@ export class AuthService {
     private env: EnvService,
     private alertService: AlertService,
     //private base64: Base64   
-    private db: Storage,
+   // private db: Storage,
     private location: Location,
     private envService: EnvService
   ) {
@@ -70,12 +70,12 @@ export class AuthService {
     }
     ).then(response => {
       console.debug(response);
-      sessionStorage.setItem('EngineStatusConection', "ON");
+      //sessionStorage.setItem('EngineStatusConection', "ON");
       return true;
     }
     ).catch(error => {
       //console.error(error);
-      sessionStorage.setItem('EngineStatusConection', 'OFF');
+      //sessionStorage.setItem('EngineStatusConection', 'OFF');
       return false;
     }
     );
@@ -113,7 +113,7 @@ export class AuthService {
             this.HashKey = data[0].hashkey;
           }
           else {
-            sessionStorage.setItem("SessionConection", "0");
+            //sessionStorage.setItem("SessionConection", "0");
             this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: 'Autenticação do Sistema', pMessage: data[0].message });
           }
           resolve(data);
