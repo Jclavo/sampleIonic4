@@ -14,4 +14,22 @@
 
 <ion-content class="ion-padding">
 
+    <ion-list>
+        <ion-item *ngFor="let employee of employees" >
+          <ion-label>
+            {{ employee.name }}
+          </ion-label>
+  
+          <!-- <ion-button title="Edit" [routerLink]="['/employee', employee.employee_id]"> -->
+            <ion-button title="Edit" (click)="updateEmployee(employee.id)">
+            <ion-icon slot="icon-only" name="edit" ></ion-icon>
+          </ion-button>
+  
+          <ion-button title="Delete" (click)="deleteEmployee(employee.id)">
+            <ion-icon slot="icon-only" name="trash" ></ion-icon>
+          </ion-button>
+  
+        </ion-item>
+      </ion-list>
+
 </ion-content>

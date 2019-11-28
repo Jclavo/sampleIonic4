@@ -18,8 +18,7 @@ import { AuthService } from '../../services/auth.service';
 export class EmployeePage implements OnInit {
 
   private employee = new EmployeeModel();
-  private employees: Array<EmployeeModel> = [];
-
+ 
   private countries: Array<CountryModel> = [];
 
   constructor(private alertService: AlertService,
@@ -42,7 +41,7 @@ export class EmployeePage implements OnInit {
         if(this.employee.employee_id)
         {
           //Create a form
-          
+
           //this.CRUDEmployee('',formEmployee);
         }
 
