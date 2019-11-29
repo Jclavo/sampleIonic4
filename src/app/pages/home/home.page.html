@@ -17,15 +17,15 @@
     <ion-list>
         <ion-item *ngFor="let employee of employees" >
           <ion-label>
-            {{ employee.name }}
+            {{ employee.fullName }}
           </ion-label>
   
           <!-- <ion-button title="Edit" [routerLink]="['/employee', employee.employee_id]"> -->
-            <ion-button title="Edit" (click)="updateEmployee(employee.id)">
-            <ion-icon slot="icon-only" name="edit" ></ion-icon>
+            <ion-button title="Edit" (click)="updateEmployee(employee.employee_id)" >
+            <ion-icon slot="icon-only" name="construct" ></ion-icon>
           </ion-button>
   
-          <ion-button title="Delete" (click)="deleteEmployee(employee.id)">
+          <ion-button title="Delete" (click)="willDeleteEmployee(employee.employee_id)" color="danger">
             <ion-icon slot="icon-only" name="trash" ></ion-icon>
           </ion-button>
   

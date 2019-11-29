@@ -5,16 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class EnvService {
 
-  API_HOST   = "http://200.196.251.212"; 
-  //API_HOST = "http://192.168.0.121";
+  //SERVER
+  //API_HOST   = "http://200.196.251.212"; 
 
-  API_URL = "/ServiceExample/api/example";
-  APP_NAME = "Cadastro Imobiliário";
+  // LOCALHOST
+  API_HOST = "http://192.168.15.4"; 
 
+  // URL FROM IIS as Example
+  API_URL = "/ServiceExample/api/sampleIonic4";
+
+  APP_NAME = "Sample Ionic 4";
+
+  // Variables to work with Images
   API = "/ServiceExample/"
   API_NAME = this.API_HOST + this.API;
-
-
   IMAGE_CROQUI_PATH = "uploads/imagems/croqui/";
 
   constructor() { }

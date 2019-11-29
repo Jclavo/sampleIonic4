@@ -12,7 +12,7 @@
       <ion-card-content>
         <ion-item>
           <ion-label>Name:</ion-label>
-          <ion-input [(ngModel)]="employee.name" type="text" name="name" maxlength="45" required>
+          <ion-input [(ngModel)]="employee.fullName" type="text" name="fullName" maxlength="45" required>
           </ion-input>
         </ion-item>
       </ion-card-content>
@@ -52,7 +52,7 @@
         <ion-list>
           <ion-item>
             <ion-label>Country</ion-label>
-            <ion-select [(ngModel)]="employee.country" name="country" placeholder="Selecione...">
+            <ion-select [(ngModel)]="employee.country_id" name="country_id" placeholder="Selecione...">
               <ion-select-option *ngFor="let country of countries" value="{{country.country_id}}">
                 {{country.name}}
               </ion-select-option>

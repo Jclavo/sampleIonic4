@@ -8,6 +8,7 @@ import { EmployeeModel } from '../../models/employee.model';
 //SERVICE
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -16,14 +17,20 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
 
+  static CRUD_PESQUISAR: string =  'Pesquisar';
+  static CRUD_APAGAR: string =  'Apagar';
+
+
+  private employee = new EmployeeModel();
   private employees: Array<EmployeeModel> = [];
 
   constructor(private router: Router,
     private alertService: AlertService,
-    private authService: AuthService) {} 
+    private authService: AuthService,
+    private alertController: AlertController) {} 
 
   ngOnInit() {
-
+    this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
   }
 
   createEmployee()
@@ -39,7 +46,8 @@ export class HomePage {
 
   deleteEmployee(employee_id: string)
   {
-    //this.CRUDEmployee("", "formEmployee");
+    this.employee.employee_id = employee_id;
+    this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
   }
 
 
@@ -47,8 +55,10 @@ export class HomePage {
   CRUDEmployee(StatusCRUD: string, formEmployee: NgForm)
   {
     let params = {
-      'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      'CodigoUsuarioSistema': 1,
       'StatusCRUD': StatusCRUD,
+      'Employee_id': this.employee.employee_id,
       'formValues': (formEmployee) ? formEmployee.value : ""
 
     };
@@ -72,6 +82,7 @@ export class HomePage {
             // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
             // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
             
+            if(StatusCRUD == HomePage.CRUD_APAGAR) this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
           } 
         }
         else {
@@ -83,6 +94,31 @@ export class HomePage {
         //this.router.navigate(['/home']);
       }
     });
+  }
+
+  async willDeleteEmployee(employee_id: string) {
+
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: '<strong>Deleted?</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          // handler: (blah) => {
+          //   console.log('Confirm Cancel: blah');
+          // }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.deleteEmployee(employee_id);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

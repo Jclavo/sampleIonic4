@@ -17,8 +17,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class EmployeePage implements OnInit {
 
+  static CRUD_PESQUISAR: string =  'Pesquisar';
+  static CRUD_CRIAR: string =  'Criar';
+  static CRUD_SALVAR: string =  'Salvar';
+  
   private employee = new EmployeeModel();
- 
   private countries: Array<CountryModel> = [];
 
   constructor(private alertService: AlertService,
@@ -27,7 +30,7 @@ export class EmployeePage implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.mockCountries();
+    //this.mockCountries();
 
     // Getting data from another page
     this.activatedRoute.params.subscribe(
@@ -37,15 +40,11 @@ export class EmployeePage implements OnInit {
         this.employee.employee_id = data.employe_id;
 
         //Your logic
-
-        if(this.employee.employee_id)
-        {
-          //Create a form
-
-          //this.CRUDEmployee('',formEmployee);
-        }
-
-
+        this.getCountries()
+        // if(this.employee.employee_id)
+        // {
+        //   this.getCountries()
+        // }
 
       }
     )
@@ -56,11 +55,11 @@ export class EmployeePage implements OnInit {
 
   mockCountries()
   {
-    this.countries.push({'country_id': "1",'name': "Peru" });
-    this.countries.push({'country_id': "2",'name': "Colombia" });
-    this.countries.push({'country_id': "3",'name': "Brazil" });
-    this.countries.push({'country_id': "4",'name': "India" });
-    this.countries.push({'country_id': "5",'name': "Tunisia" });
+    // this.countries.push({'country_id': "1",'name': "Peru" });
+    // this.countries.push({'country_id': "2",'name': "Colombia" });
+    // this.countries.push({'country_id': "3",'name': "Brazil" });
+    // this.countries.push({'country_id': "4",'name': "India" });
+    // this.countries.push({'country_id': "5",'name': "Tunisia" });
   }
 
   save(formEmployee: NgForm)
@@ -68,20 +67,22 @@ export class EmployeePage implements OnInit {
     console.log('formEmployee: ',formEmployee.value);
     if(this.employee.employee_id)
     {
-      this.CRUDEmployee('',formEmployee);
+      this.CRUDEmployee(EmployeePage.CRUD_SALVAR,formEmployee);
     }
     else
     {
-      this.CRUDEmployee('',formEmployee);
+      this.CRUDEmployee(EmployeePage.CRUD_CRIAR,formEmployee);
     }
-    
+
   }
 
   CRUDEmployee(StatusCRUD: string, formEmployee: NgForm)
   {
     let params = {
-      'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      'CodigoUsuarioSistema': 1,
       'StatusCRUD': StatusCRUD,
+      'Employee_id': (this.employee.employee_id) ? this.employee.employee_id : "",
       'formValues': (formEmployee) ? formEmployee.value : ""
 
     };
@@ -98,14 +99,18 @@ export class EmployeePage implements OnInit {
           if (resultado.results) 
           {
             this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            
-          } 
-          this.router.navigate(['/home']);
+            this.employee.fullName = JSON.parse(resultado.results)[0].fullName;
+            this.employee.birthdate = JSON.parse(resultado.results)[0].birthdate;
+            this.employee.genre = String(JSON.parse(resultado.results)[0].genre);
+            this.employee.country_id = String(JSON.parse(resultado.results)[0].country_id);
+
+            if (StatusCRUD != EmployeePage.CRUD_PESQUISAR) this.router.navigate(['/home']);
+          }
+          else
+          {
+            this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+          }
+          
         }
         else {
           this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
@@ -113,7 +118,7 @@ export class EmployeePage implements OnInit {
         }
       } catch (err) {
         this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-        //this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       }
     });
   }
@@ -121,6 +126,55 @@ export class EmployeePage implements OnInit {
   cancel()
   {
     this.router.navigate(['home']);
+  }
+
+  getCountries()
+  {
+    this.CRUDCrountry(EmployeePage.CRUD_PESQUISAR, null)
+  }
+
+  CRUDCrountry(StatusCRUD: string, formEmployee: NgForm)
+  {
+    let params = {
+      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      'CodigoUsuarioSistema': 1,
+      'StatusCRUD': StatusCRUD,
+      //'Country_id': (this.country.country_id) ? this.country.country_id : "",
+      'formValues': (formEmployee) ? formEmployee.value : ""
+
+    };
+
+    // API methode's name
+    // Store Procedure's name
+    // parameters
+
+    this.authService.QueryStoreProc('Executar', 'spCRUDCountry', params).then(res => {
+      let resultado: any = res[0];
+      try {
+        if (resultado.success) {
+          console.log(resultado.message);
+          if (resultado.results) 
+          {
+            this.countries = JSON.parse(resultado.results);
+
+            this.employee.employee_id ? this.CRUDEmployee(EmployeePage.CRUD_PESQUISAR,null) : null;
+
+          }
+          else
+          {
+            this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+          }
+          
+        }
+        else {
+          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+          //this.router.navigate(['/home']);
+        }
+      } catch (err) {
+        this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
 }
