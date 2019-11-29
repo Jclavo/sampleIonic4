@@ -6,10 +6,10 @@ import { Injectable } from '@angular/core';
 export class EnvService {
 
   //SERVER
-  //API_HOST   = "http://200.196.251.212"; 
+  API_HOST   = "http://200.196.251.212"; 
 
   // LOCALHOST
-  API_HOST = "http://192.168.15.4"; 
+  //API_HOST = "http://192.168.15.4"; 
 
   // URL FROM IIS as Example
   API_URL = "/ServiceExample/api/sampleIonic4";
