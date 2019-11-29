@@ -47,9 +47,8 @@ export class HomePage {
   deleteEmployee(employee_id: string)
   {
     this.employee.employee_id = employee_id;
-    this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
+    this.CRUDEmployee(HomePage.CRUD_APAGAR,null);
   }
-
 
 
   CRUDEmployee(StatusCRUD: string, formEmployee: NgForm)
@@ -58,10 +57,12 @@ export class HomePage {
       // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
       'CodigoUsuarioSistema': 1,
       'StatusCRUD': StatusCRUD,
-      'Employee_id': this.employee.employee_id,
+      'Employee_id': (this.employee.employee_id) ? this.employee.employee_id : "",
       'formValues': (formEmployee) ? formEmployee.value : ""
 
     };
+
+    this.employee.employee_id = null
 
     // API methode's name
     // Store Procedure's name
@@ -76,13 +77,14 @@ export class HomePage {
           {
             this.employees  = JSON.parse(resultado.results);
             // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-            
-            if(StatusCRUD == HomePage.CRUD_APAGAR) this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
+          }else
+          {
+            this.employees  = [];
+          }
+          
+          if(StatusCRUD == HomePage.CRUD_APAGAR)
+          {
+            this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
           } 
         }
         else {
