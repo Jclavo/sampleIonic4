@@ -15,4 +15,40 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- <ion-grid>
+    <ion-row class="ion-justify-content-center align-items-center">
+      <ion-col class="ion-padding" *ngFor="let tipoBoletim of tipoBoletimList" 
+        (click)="abrirBoletim( tipoBoletim.CodigoTipoBoletim )" col-6>
+        <div class="ion-text-center">
+          <img src="../../../assets/imgs/icon-app/normal/{{tipoBoletim.imagem}}" height="150px" width="150px">
+          <h3>
+            {{tipoBoletim.nome}}
+          </h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center align-items-center">
+      <ion-col class="ion-padding" col-6>
+        <div class="ion-text-center">
+          <img src="../../../assets/imgs/icon-app/normal/{{tipoBoletim.imagem}}" height="150px" width="150px">
+          <h3>
+            Employees
+          </h3>
+        </div>
+      </ion-col>
+
+      <ion-col class="ion-padding" col-6>
+        <div class="ion-text-center">
+          <img src="../../../assets/imgs/icon-app/normal/{{tipoBoletim.imagem}}" height="150px" width="150px">
+          <h3>
+            More Options
+          </h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
