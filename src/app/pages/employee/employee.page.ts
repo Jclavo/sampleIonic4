@@ -9,6 +9,7 @@ import { CountryModel } from '../../models/country.model';
 //SERVICE
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-employee',
@@ -20,6 +21,7 @@ export class EmployeePage implements OnInit {
   static CRUD_PESQUISAR: string =  'Pesquisar';
   static CRUD_CRIAR: string =  'Criar';
   static CRUD_SALVAR: string =  'Salvar';
+  static APP_NAME: string = EnvService.name;
   
   private employee = new EmployeeModel();
   private countries: Array<CountryModel> = [];
@@ -91,8 +93,8 @@ export class EmployeePage implements OnInit {
   CRUDEmployee(StatusCRUD: string, formEmployee: NgForm)
   {
     let params = {
-      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
-      'CodigoUsuarioSistema': 1,
+      'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      'Hashkey': this.authService.HashKey,
       'StatusCRUD': StatusCRUD,
       'Employee_id': (this.employee.employee_id) ? this.employee.employee_id : "",
       'formValues': (formEmployee) ? formEmployee.value : ""
@@ -121,11 +123,11 @@ export class EmployeePage implements OnInit {
           
         }
         else {
-          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-          //this.router.navigate(['/home']);
+          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeePage.APP_NAME, pMessage: resultado.message });
+          this.router.navigate(['/login']);
         }
       } catch (err) {
-        this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+        this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeePage.APP_NAME, pMessage: resultado.message });
         this.router.navigate(['/login']);
       }
     });
@@ -144,8 +146,8 @@ export class EmployeePage implements OnInit {
   CRUDCrountry(StatusCRUD: string, formEmployee: NgForm)
   {
     let params = {
-      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
-      'CodigoUsuarioSistema': 1,
+      'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      'Hashkey': this.authService.HashKey,
       'StatusCRUD': StatusCRUD,
       //'Country_id': (this.country.country_id) ? this.country.country_id : "",
       'formValues': (formEmployee) ? formEmployee.value : ""
@@ -170,13 +172,13 @@ export class EmployeePage implements OnInit {
           }
           else
           {
-            this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
+            this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeePage.APP_NAME, pMessage: resultado.message });
           }
           
         }
         else {
-          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-          //this.router.navigate(['/home']);
+          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle:  EmployeePage.APP_NAME, pMessage: resultado.message });
+          this.router.navigate(['/login']);
         }
       } catch (err) {
         this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });

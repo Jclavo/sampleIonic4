@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 //MODELS
 import { EmployeeModel } from '../../models/employee.model';
@@ -8,8 +9,7 @@ import { EmployeeModel } from '../../models/employee.model';
 //SERVICE
 import { AlertService } from '../../services/alert.service';
 import { AuthService } from '../../services/auth.service';
-import { AlertController } from '@ionic/angular';
-
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -20,7 +20,7 @@ export class EmployeeListPage implements OnInit {
 
   static CRUD_PESQUISAR: string = 'Pesquisar';
   static CRUD_APAGAR: string = 'Apagar';
-
+  static APP_NAME: string = EnvService.name;
 
   private employee = new EmployeeModel();
   private employees: Array<EmployeeModel> = [];
@@ -37,7 +37,7 @@ export class EmployeeListPage implements OnInit {
   }
 
   // Instead I have to use it
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.CRUDEmployee(EmployeeListPage.CRUD_PESQUISAR, null);
   }
 
@@ -47,7 +47,7 @@ export class EmployeeListPage implements OnInit {
   }
 
   updateEmployee(employee_id: string) {
-    this.router.navigate(['/menu/options/tabs/employee', employee_id]); 
+    this.router.navigate(['/menu/options/tabs/employee', employee_id]);
   }
 
   deleteEmployee(employee_id: string) {
@@ -58,12 +58,12 @@ export class EmployeeListPage implements OnInit {
 
   CRUDEmployee(StatusCRUD: string, formEmployee: NgForm) {
     let params = {
-      // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
-      'CodigoUsuarioSistema': 1,
+      'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
+      //'CodigoUsuarioSistema': 1,
+      'Hashkey': this.authService.HashKey,
       'StatusCRUD': StatusCRUD,
       'Employee_id': (this.employee.employee_id) ? this.employee.employee_id : "",
       'formValues': (formEmployee) ? formEmployee.value : ""
-
     };
 
     this.employee.employee_id = null
@@ -91,12 +91,12 @@ export class EmployeeListPage implements OnInit {
           }
         }
         else {
-          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-          //this.router.navigate(['/home']);
+          this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeeListPage.APP_NAME, pMessage: resultado.message });
+          this.router.navigate(['/login']);
         }
       } catch (err) {
-        this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-        //this.router.navigate(['/home']);
+        this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeeListPage.APP_NAME, pMessage: resultado.message });
+        this.router.navigate(['/login']);
       }
     });
   }
