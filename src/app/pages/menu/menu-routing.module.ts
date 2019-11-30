@@ -15,7 +15,8 @@ const routes: Routes = [
       },
       {
         path: 'minhaconta',        
-        loadChildren: '../minhaconta/minhaconta.module#MinhacontaPageModule'
+        //loadChildren: '../minhaconta/minhaconta.module#MinhacontaPageModule'
+        loadChildren: () => import('../minhaconta/minhaconta.module').then( m => m.MinhacontaPageModule)
       }
     ]
   }

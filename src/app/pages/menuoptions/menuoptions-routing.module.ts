@@ -10,11 +10,16 @@ const routes: Routes = [
     children: [
       {
         path: 'main',
-        loadChildren: '../main/main.module#MainPageModule'
+        loadChildren: () => import('../main/main.module').then( m => m.MainPageModule)
       },
+      // {
+      //   path: 'main/details',
+      //   loadChildren: '../details/details.module#DetailsPageModule'
+      // },
       {
-        path: 'main/details',
-        loadChildren: '../details/details.module#DetailsPageModule'
+        path: 'config',
+        //loadChildren: '../config/config.module#ConfigPageModule'
+        loadChildren: () => import('../config/config.module').then( m => m.ConfigPageModule)
       }
     ]
   },
