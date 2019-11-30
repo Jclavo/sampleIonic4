@@ -5,7 +5,7 @@ import { MenuoptionsPage } from './menuoptions.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     component: MenuoptionsPage,
     children: [
       {
@@ -17,6 +17,11 @@ const routes: Routes = [
         loadChildren: '../details/details.module#DetailsPageModule'
       }
     ]
+  },
+  {
+    path: '',
+    redirectTo: 'tabs/main',
+    pathMatch: 'full'
   }
 ];
 
