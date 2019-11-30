@@ -117,7 +117,7 @@ export class EmployeePage implements OnInit {
             this.employee.genre = String(JSON.parse(resultado.results)[0].genre);
             this.employee.country_id = String(JSON.parse(resultado.results)[0].country_id);
           }
-          if (StatusCRUD != EmployeePage.CRUD_PESQUISAR) this.router.navigate(['/home']);
+          if (StatusCRUD != EmployeePage.CRUD_PESQUISAR) this.router.navigate(['/menu/options/tabs/employee-list']);
           
         }
         else {
@@ -126,14 +126,14 @@ export class EmployeePage implements OnInit {
         }
       } catch (err) {
         this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       }
     });
   }
 
   cancel()
   {
-    this.router.navigate(['home']);
+    this.router.navigate(['/menu/options/tabs/employee-list']);
   }
 
   getCountries()
@@ -180,7 +180,7 @@ export class EmployeePage implements OnInit {
         }
       } catch (err) {
         this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       }
     });
   }

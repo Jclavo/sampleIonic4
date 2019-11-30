@@ -22,8 +22,8 @@ const routes: Routes = [
         loadChildren: () => import('../config/config.module').then(m => m.ConfigPageModule)
       },
       {
-        path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        path: 'employee-list',
+        loadChildren: () => import('../employee-list/employee-list.module').then( m => m.EmployeeListPageModule)
       },
       {
         path: 'employee',
