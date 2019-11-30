@@ -43,11 +43,11 @@ export class HomePage implements OnInit {
 
   createEmployee() {
     // this.router.navigate(['/menu/options/tabs/inscricao-cadastral', this.CodigoTipoBoletim]);
-    this.router.navigate(['employee']);
+    this.router.navigate(['/menu/options/tabs/employee']);
   }
 
   updateEmployee(employee_id: string) {
-    this.router.navigate(['employee', employee_id]);
+    this.router.navigate(['/menu/options/tabs/employee', employee_id]); 
   }
 
   deleteEmployee(employee_id: string) {

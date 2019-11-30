@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'main',
-        loadChildren: () => import('../main/main.module').then( m => m.MainPageModule)
+        loadChildren: () => import('../main/main.module').then(m => m.MainPageModule)
       },
       // {
       //   path: 'main/details',
@@ -19,8 +19,21 @@ const routes: Routes = [
       {
         path: 'config',
         //loadChildren: '../config/config.module#ConfigPageModule'
-        loadChildren: () => import('../config/config.module').then( m => m.ConfigPageModule)
-      }
+        loadChildren: () => import('../config/config.module').then(m => m.ConfigPageModule)
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+      },
+      {
+        path: 'employee',
+        loadChildren: () => import('../employee/employee.module').then(m => m.EmployeePageModule)
+      },
+      {
+        path: 'employee/:employe_id',
+        loadChildren: () => import('../employee/employee.module').then(m => m.EmployeePageModule)
+      },
+
     ]
   },
   {
@@ -34,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MenuoptionsPageRoutingModule {}
+export class MenuoptionsPageRoutingModule { }
