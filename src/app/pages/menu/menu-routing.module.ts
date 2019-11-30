@@ -10,7 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: 'options',
-        loadChildren: '../menuoptions/menuoptions.module#MenuoptionsPageModule'
+        //loadChildren: '../menuoptions/menuoptions.module#MenuoptionsPageModule'
+        loadChildren: () => import('../menuoptions/menuoptions.module').then( m => m.MenuoptionsPageModule)
       },
       {
         path: 'minhaconta',        
