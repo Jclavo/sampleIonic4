@@ -1,9 +1,89 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Cadastro Imobiliário</ion-title>
+    <!-- <ion-avatar slot="start">
+        <img src="../../../assets/imgs/icon-app/48x48/9.png">
+      </ion-avatar> -->
   </ion-toolbar>
 </ion-header>
+<ion-content padding>
 
-<ion-content>
+  <!-- <ion-grid>
+    <h3 text-center>Autenticação no Sistema</h3>
+  </ion-grid> -->
 
+  <!--  -->
+    <ion-grid text-center>
+    <img src="../../../assets/imgs/icon-app/normal/CADASTRO-MOBILIARIO.png"
+    height="150px" width="150px">
+  </ion-grid>
+
+  <form #form="ngForm" (ngSubmit)="AuthLogin(form)" (keyup.enter)="AuthLogin(form)" method="post">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input #email ngModel type="email" name="email" value="gilson.delima@gmail.com"
+        pattern="[A-Za-z0-9._%+-]{2,}@[a-zA-Z-_.]{2,}[.]{1}[a-zA-Z]{2,}" required>
+        
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input ngModel type="password" name="password" value="1111" required></ion-input>
+    </ion-item>
+
+    <p text-right>
+      <a>
+        Esqueceu a senha?
+      </a>
+    </p>
+    <ion-button type="submit" [disabled]="!form.valid" expand="full" color="primary">Entrar</ion-button>
+  </form>
+
+  <ion-button expand="full" color="danger" [routerLink]="['/register']">Criar Conta</ion-button>
+
+  <!-- <ion-list>
+   
+      <ion-list-header>
+        Auto Manufacturers
+      </ion-list-header>
+
+      <ion-radio-group [allowEmptySelection]=true>
+      <ion-item>
+        <ion-label>Cord</ion-label>
+        <ion-radio value="cord" ></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  
+    <ion-radio-group [allowEmptySelection]=true>
+      <ion-item>
+        <ion-label>Duesenberg</ion-label>
+        <ion-radio value="duesenberg"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  
+      <ion-item>
+        <ion-label>Hudson</ion-label>
+        <ion-radio value="hudson"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Packard</ion-label>
+        <ion-radio value="packard"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Studebaker</ion-label>
+        <ion-radio value="studebaker"></ion-radio>
+      </ion-item>
+
+  </ion-list> -->
 </ion-content>
+<ion-footer padding>
+  <ion-toolbar>
+    <ion-label text-justify text-wrap>
+      {{ NomeUsuarioSistema }} foi o última usuário a autenticar no sistema neste dispositivo
+    </ion-label>
+  </ion-toolbar>
+</ion-footer>
