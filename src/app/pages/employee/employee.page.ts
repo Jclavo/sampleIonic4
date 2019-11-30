@@ -64,6 +64,18 @@ export class EmployeePage implements OnInit {
 
   save(formEmployee: NgForm)
   {
+
+    //Custom Validation, you can create a function to validate it
+    if( this.isUndefined(formEmployee.value.birthdate) 
+        || this.isUndefined(formEmployee.value.genre)
+        || this.isUndefined(formEmployee.value.country_id)
+      )
+    {
+      this.alertService.presentToast('Some fields are empty..');
+      return;
+    }
+
+
     console.log('formEmployee: ',formEmployee.value);
     if(this.employee.employee_id)
     {
@@ -96,6 +108,7 @@ export class EmployeePage implements OnInit {
       try {
         if (resultado.success) {
           console.log(resultado.message);
+          this.alertService.presentToast(resultado.message);
           if (resultado.results) 
           {
             this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
@@ -103,13 +116,8 @@ export class EmployeePage implements OnInit {
             this.employee.birthdate = JSON.parse(resultado.results)[0].birthdate;
             this.employee.genre = String(JSON.parse(resultado.results)[0].genre);
             this.employee.country_id = String(JSON.parse(resultado.results)[0].country_id);
-
-            if (StatusCRUD != EmployeePage.CRUD_PESQUISAR) this.router.navigate(['/home']);
           }
-          else
-          {
-            this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
-          }
+          if (StatusCRUD != EmployeePage.CRUD_PESQUISAR) this.router.navigate(['/home']);
           
         }
         else {
@@ -175,6 +183,18 @@ export class EmployeePage implements OnInit {
         this.router.navigate(['/home']);
       }
     });
+  }
+
+
+  /*
+    VALIDATION FUNCTION
+    This one should be stored in an isolated file
+  */
+
+  isUndefined(value: string)
+  {
+    if (value == undefined) return true;
+    else return false;
   }
 
 }

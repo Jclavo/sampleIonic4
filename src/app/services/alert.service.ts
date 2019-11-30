@@ -12,6 +12,7 @@ export class AlertService {
     private alertCtrl: AlertController,    
     public loadingCtrl: LoadingController
     ) { }
+    
   async presentToast(message: any) {
     const toast = await this.toastController.create({
       message: message,
@@ -21,11 +22,13 @@ export class AlertService {
     });
     toast.present();
   }
+
   hideLoader(duration:number) {
     setTimeout(() => {
       this.loadingCtrl.dismiss();
     }, duration);
   }
+
   async showLoader(_pMessage = 'Carregando...', duration = 2000 ) {
     this.loaderToShow = this.loadingCtrl.create({
       message: _pMessage,

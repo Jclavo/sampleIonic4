@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms'; 
+import { NgForm } from '@angular/forms';
 
 //MODELS
 import { EmployeeModel } from '../../models/employee.model';
@@ -15,10 +15,11 @@ import { AlertController } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  
 
-  static CRUD_PESQUISAR: string =  'Pesquisar';
-  static CRUD_APAGAR: string =  'Apagar';
+  static CRUD_PESQUISAR: string = 'Pesquisar';
+  static CRUD_APAGAR: string = 'Apagar';
 
 
   private employee = new EmployeeModel();
@@ -27,32 +28,35 @@ export class HomePage {
   constructor(private router: Router,
     private alertService: AlertService,
     private authService: AuthService,
-    private alertController: AlertController) {} 
-
-  ngOnInit() {
-    this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
+    private alertController: AlertController) {
+    //console.log('I am a constructor beach!');
   }
 
-  createEmployee()
-  {
+  // this is not working, maybe because is HomePage
+  ngOnInit() {
+  }
+
+  // Instead I have to use it
+  ionViewDidEnter(){
+    this.CRUDEmployee(HomePage.CRUD_PESQUISAR, null);
+  }
+
+  createEmployee() {
     // this.router.navigate(['/menu/options/tabs/inscricao-cadastral', this.CodigoTipoBoletim]);
     this.router.navigate(['employee']);
   }
 
-  updateEmployee(employee_id: string)
-  {
-    this.router.navigate(['employee',employee_id]);
+  updateEmployee(employee_id: string) {
+    this.router.navigate(['employee', employee_id]);
   }
 
-  deleteEmployee(employee_id: string)
-  {
+  deleteEmployee(employee_id: string) {
     this.employee.employee_id = employee_id;
-    this.CRUDEmployee(HomePage.CRUD_APAGAR,null);
+    this.CRUDEmployee(HomePage.CRUD_APAGAR, null);
   }
 
 
-  CRUDEmployee(StatusCRUD: string, formEmployee: NgForm)
-  {
+  CRUDEmployee(StatusCRUD: string, formEmployee: NgForm) {
     let params = {
       // 'CodigoUsuarioSistema': this.authService.CodigoUsuarioSistema,
       'CodigoUsuarioSistema': 1,
@@ -73,19 +77,18 @@ export class HomePage {
       try {
         if (resultado.success) {
           console.log(resultado.message);
-          if (resultado.results) 
-          {
-            this.employees  = JSON.parse(resultado.results);
+
+          if (resultado.results) {
+            this.employees = JSON.parse(resultado.results);
             // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
-          }else
-          {
-            this.employees  = [];
+          } else {
+            this.employees = [];
           }
-          
-          if(StatusCRUD == HomePage.CRUD_APAGAR)
-          {
-            this.CRUDEmployee(HomePage.CRUD_PESQUISAR,null);
-          } 
+
+          if (StatusCRUD == HomePage.CRUD_APAGAR) {
+            this.alertService.presentToast(resultado.message);
+            this.CRUDEmployee(HomePage.CRUD_PESQUISAR, null);
+          }
         }
         else {
           this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: "this.AppName", pMessage: resultado.message });
@@ -98,11 +101,11 @@ export class HomePage {
     });
   }
 
-  async willDeleteEmployee(employee_id: string) {
+  async willDeleteEmployee(employee_id: string, name: string) {
 
     const alert = await this.alertController.create({
       header: 'Confirm!',
-      message: '<strong>Deleted?</strong>!!!',
+      message: 'Deleted <strong>' + name + '?</strong>!!!',
       buttons: [
         {
           text: 'Cancel',

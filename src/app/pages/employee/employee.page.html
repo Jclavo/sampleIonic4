@@ -52,7 +52,7 @@
         <ion-list>
           <ion-item>
             <ion-label>Country</ion-label>
-            <ion-select [(ngModel)]="employee.country_id" name="country_id" placeholder="Selecione...">
+            <ion-select [(ngModel)]="employee.country_id" name="country_id" placeholder="Select...">
               <ion-select-option *ngFor="let country of countries" value="{{country.country_id}}">
                 {{country.name}}
               </ion-select-option>
