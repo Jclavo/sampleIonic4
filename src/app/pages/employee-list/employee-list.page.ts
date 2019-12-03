@@ -79,8 +79,27 @@ export class EmployeeListPage implements OnInit {
           console.log(resultado.message);
 
           if (resultado.results) {
-            this.employees = JSON.parse(resultado.results);
-            // this.employee.employee_id = JSON.parse(resultado.results)[0].employee_id;
+            let results = JSON.parse(resultado.results);
+
+            // Easy Way to get 'result' data
+            //this.employees = JSON.parse(resultado.results);
+
+            // Better Way to get 'result' data
+
+           this.employees = results.map(function callback(value) {
+
+              let employee = new EmployeeModel();
+              employee.employee_id = value.employee_id;
+              employee.fullName = value.fullName;
+              employee.birthdate = value.birthdate;
+              employee.genre = value.genre;
+              employee.country_id = value.country_id;
+
+              return employee;
+
+            });
+
+
           } else {
             this.employees = [];
           }
