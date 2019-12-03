@@ -145,7 +145,10 @@ export class LoginPage implements OnInit {
         this.alertService.showLoader(resultado.message, 2000);
         //this.navCtrl.navigateRoot('/menu/options'); 
         // this.navCtrl.navigateRoot('/menu/options'); 
-        this.router.navigate(['/menu/options']);
+        
+        //this.navCtrl.navigateRoot('/menu/options');  OLDER
+        this.router.navigate(['/menu/options']); // NEWER
+        
         //this.alertService.presentToast(resultado.message);
 
       }

@@ -124,7 +124,8 @@ export class EmployeePage implements OnInit {
         }
         else {
           this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeePage.APP_NAME, pMessage: resultado.message });
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login']); //NEWER
+          //this.navCtrl.navigateRoot('/login'); OLDER
         }
       } catch (err) {
         this.alertService.presentAlert({ pTitle: 'ATENÇÃO', pSubtitle: EmployeePage.APP_NAME, pMessage: resultado.message });
@@ -135,7 +136,9 @@ export class EmployeePage implements OnInit {
 
   cancel()
   {
-    this.router.navigate(['/menu/options/tabs/employee-list']);
+    // this.navCtrl.navigateRoot('/menu/options/tabs/employee-list'); OLDER
+    this.router.navigate(['/menu/options/tabs/employee-list']); //NEWER
+    
   }
 
   getCountries()

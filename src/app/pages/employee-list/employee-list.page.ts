@@ -42,12 +42,13 @@ export class EmployeeListPage implements OnInit {
   }
 
   createEmployee() {
-    // this.router.navigate(['/menu/options/tabs/inscricao-cadastral', this.CodigoTipoBoletim]);
-    this.router.navigate(['/menu/options/tabs/employee']);
+    //this.navCtrl.navigateRoot('/menu/options/tabs/employee'); OLDER 
+    this.router.navigate(['/menu/options/tabs/employee']); //NEWER
   }
 
   updateEmployee(employee_id: string) {
-    this.router.navigate(['/menu/options/tabs/employee', employee_id]);
+    //this.navCtrl.navigateRoot('/menu/options/tabs/employee', employee_id); OLDER 
+    this.router.navigate(['/menu/options/tabs/employee', employee_id]); //NEWER
   }
 
   deleteEmployee(employee_id: string) {
