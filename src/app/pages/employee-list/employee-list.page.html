@@ -14,22 +14,50 @@
 
 <ion-content class="ion-padding">
 
-    <ion-list>
-        <ion-item *ngFor="let employee of employees" >
-          <ion-label>
-            {{ employee.fullName }}
-          </ion-label>
-  
-          <!-- <ion-button title="Edit" [routerLink]="['/employee', employee.employee_id]"> -->
-            <ion-button title="Edit" (click)="updateEmployee(employee.employee_id)" >
-            <ion-icon slot="icon-only" name="construct" ></ion-icon>
-          </ion-button>
-  
-          <ion-button title="Delete" (click)="willDeleteEmployee(employee.employee_id, employee.fullName )" color="danger">
-            <ion-icon slot="icon-only" name="trash" ></ion-icon>
-          </ion-button>
-  
-        </ion-item>
-      </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let employee of employees">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Full Name:
+            <ion-label>
+              {{ employee.fullName }}
+            </ion-label>
+          </ion-col>
+          <!-- <ion-col>
+            Birthdate:
+            <ion-label>
+              {{ employee.birthdate }}
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            Genre:
+            <ion-label>
+              {{ employee.genre }}
+            </ion-label>
+          </ion-col>
+
+          <ion-col>
+            Country:
+            <ion-label>
+              {{ employee.country_id }}
+            </ion-label>
+          </ion-col> -->
+        </ion-row>
+      </ion-grid>
+
+
+      <!-- <ion-button title="Edit" [routerLink]="['/employee', employee.employee_id]"> -->
+      <ion-button title="Edit" (click)="updateEmployee(employee.employee_id)">
+        <ion-icon slot="icon-only" name="construct"></ion-icon>
+      </ion-button>
+
+      <ion-button title="Delete" (click)="willDeleteEmployee(employee.employee_id, employee.fullName )" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
 
 </ion-content>
